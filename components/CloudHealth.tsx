@@ -27,20 +27,25 @@ const providers = [
     regions: "39 Regions",
     color: "bg-emerald-500",
   },
-];
+] as const;
 
 export default function CloudHealth() {
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7 }}
-      className="rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-xl shadow-2xl"
+      className="rounded-3xl border border-white/10 bg-white/[0.04] p-8 shadow-2xl backdrop-blur-xl"
+      aria-labelledby="cloud-health-title"
     >
-      <div className="mb-8 flex items-center justify-between">
+      {/* Header */}
+      <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white">
+          <h2
+            id="cloud-health-title"
+            className="text-2xl font-bold text-white"
+          >
             Cloud Health
           </h2>
 
@@ -50,13 +55,19 @@ export default function CloudHealth() {
         </div>
 
         <div className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300">
-          ● All Systems Operational
+          <span
+            aria-hidden="true"
+            className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-emerald-400"
+          />
+
+          All Systems Operational
         </div>
       </div>
 
+      {/* Providers */}
       <div className="space-y-5">
         {providers.map((provider, index) => (
-          <motion.div
+          <motion.article
             key={provider.short}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -69,7 +80,8 @@ export default function CloudHealth() {
           >
             <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-4">
-                <div
+                <span
+                  aria-hidden="true"
                   className={`h-4 w-4 rounded-full ${provider.color} shadow-lg`}
                 />
 
@@ -106,9 +118,9 @@ export default function CloudHealth() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.article>
         ))}
       </div>
-    </motion.div>
+    </motion.section>
   );
 }

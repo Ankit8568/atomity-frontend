@@ -3,6 +3,12 @@
 import { motion } from "framer-motion";
 import { DASHBOARD_STATS, CLOUD_PROVIDERS } from "../constants/dashboard";
 
+const metrics = [
+  { label: "CPU", value: DASHBOARD_STATS.cpu },
+  { label: "GPU", value: DASHBOARD_STATS.gpu },
+  { label: "RAM", value: DASHBOARD_STATS.ram },
+];
+
 export default function DashboardPreview() {
   return (
     <motion.div
@@ -10,9 +16,13 @@ export default function DashboardPreview() {
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative w-full max-w-md"
+      aria-label="Cloud infrastructure dashboard preview"
     >
       {/* Glow */}
-      <div className="absolute -inset-4 rounded-[2rem] bg-cyan-500/20 blur-3xl" />
+      <div
+        aria-hidden="true"
+        className="absolute -inset-4 rounded-[2rem] bg-cyan-500/20 blur-3xl"
+      />
 
       {/* Card */}
       <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.05] p-6 shadow-2xl backdrop-blur-xl">
@@ -29,7 +39,10 @@ export default function DashboardPreview() {
           </div>
 
           <div className="flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 animate-pulse rounded-full bg-emerald-400"
+            />
 
             <span className="text-xs font-medium text-emerald-300">
               Live
@@ -39,11 +52,7 @@ export default function DashboardPreview() {
 
         {/* Metrics */}
         <div className="grid grid-cols-3 gap-4">
-          {[
-            { label: "CPU", value: DASHBOARD_STATS.cpu },
-            { label: "GPU", value: DASHBOARD_STATS.gpu },
-            { label: "RAM", value: DASHBOARD_STATS.ram },
-          ].map((item, index) => (
+          {metrics.map((item, index) => (
             <motion.div
               key={item.label}
               initial={{ opacity: 0, y: 15 }}
@@ -61,7 +70,14 @@ export default function DashboardPreview() {
                 {item.value}%
               </p>
 
-              <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-800">
+              <div
+                className="mt-4 h-2 overflow-hidden rounded-full bg-slate-800"
+                role="progressbar"
+                aria-label={`${item.label} usage`}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={item.value}
+              >
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${item.value}%` }}
@@ -97,7 +113,14 @@ export default function DashboardPreview() {
                 </span>
               </div>
 
-              <div className="h-2 overflow-hidden rounded-full bg-slate-800">
+              <div
+                className="h-2 overflow-hidden rounded-full bg-slate-800"
+                role="progressbar"
+                aria-label={`${provider.name} usage`}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={provider.usage}
+              >
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${provider.usage}%` }}
@@ -113,7 +136,7 @@ export default function DashboardPreview() {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+        <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/10 pt-6 text-center">
           <div>
             <p className="text-xs uppercase tracking-wide text-slate-500">
               Uptime

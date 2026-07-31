@@ -15,13 +15,55 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Change navbar style on scroll
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
 
     onScroll();
     window.addEventListener("scroll", onScroll);
 
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Prevent body scrolling while mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  // Close mobile menu when screen becomes desktop size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Close mobile menu with Escape key
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   return (
@@ -66,15 +108,15 @@ export default function Navbar() {
             </p>
           </div>
         </motion.a>
-
-        {/* Desktop Navigation */}
+                {/* Desktop Navigation */}
         <nav className="hidden items-center gap-10 lg:flex">
           {NAV_LINKS.map((link: NavLink) => (
             <motion.a
               key={link.label}
               href={link.href}
               whileHover={{ y: -2 }}
-              className="group relative text-sm font-medium text-slate-300 transition-colors duration-300 hover:text-cyan-400"
+              transition={{ duration: 0.2 }}
+              className="group relative text-sm font-medium text-slate-300 transition-colors duration-300 hover:text-cyan-400 focus:outline-none focus:text-cyan-400"
             >
               {link.label}
 
@@ -101,8 +143,9 @@ export default function Navbar() {
           type="button"
           aria-label="Toggle navigation"
           aria-expanded={isOpen}
+          aria-controls="mobile-menu"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="text-white lg:hidden"
+          className="text-white transition-colors hover:text-cyan-400 lg:hidden"
         >
           {isOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
@@ -112,6 +155,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -135,6 +179,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+         </motion.header>
   );
 }

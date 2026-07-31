@@ -19,21 +19,33 @@ const heroStats = [
     value: DASHBOARD_STATS.requests,
   },
 ];
+
 export default function Hero() {
-     return (
+  return (
     <section
-        id="platform"
-         className="relative scroll-mt-24 overflow-hidden bg-slate-950 pt-36 pb-24"
-          >
+      id="platform"
+      aria-labelledby="hero-heading"
+      className="relative scroll-mt-24 overflow-hidden bg-slate-950 pt-36 pb-24"
+    >
       {/* Background Glow */}
-      <div className="absolute left-1/2 top-0 h-[550px] w-[550px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]" />
-
-      <div className="absolute -left-40 top-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[140px]" />
-
-      <div className="absolute -right-40 bottom-20 h-96 w-96 rounded-full bg-indigo-500/10 blur-[140px]" />
-
-      {/* Grid */}
       <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-0 h-[550px] w-[550px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]"
+      />
+
+      <div
+        aria-hidden="true"
+        className="absolute -left-40 top-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[140px]"
+      />
+
+      <div
+        aria-hidden="true"
+        className="absolute -right-40 bottom-20 h-96 w-96 rounded-full bg-indigo-500/10 blur-[140px]"
+      />
+
+      {/* Grid Background */}
+      <div
+        aria-hidden="true"
         className="absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage:
@@ -43,7 +55,7 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto flex max-w-7xl flex-col items-center gap-20 px-6 lg:flex-row lg:px-8">
-        {/* Left */}
+        {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,7 +72,10 @@ export default function Hero() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-5xl font-extrabold leading-tight text-white md:text-6xl">
+          <h1
+            id="hero-heading"
+            className="text-5xl font-extrabold leading-tight text-white md:text-6xl"
+          >
             Operate Your
             <span className="block bg-gradient-to-r from-cyan-400 to-sky-500 bg-clip-text text-transparent">
               Multi-Cloud Infrastructure
@@ -75,17 +90,20 @@ export default function Hero() {
             intelligent cost optimization—all from a single unified platform.
           </p>
 
-          {/* CTA */}
+          {/* CTA Buttons */}
           <div className="mt-10 flex flex-wrap gap-4">
             <Button>Start Monitoring</Button>
 
-            <button className="rounded-xl border border-white/10 bg-white/5 px-6 py-3 font-medium text-white transition hover:bg-white/10">
+            <button
+              type="button"
+              className="rounded-xl border border-white/10 bg-white/5 px-6 py-3 font-medium text-white transition-all duration-300 hover:border-cyan-400/40 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            >
               View Live Demo
             </button>
           </div>
 
           {/* Stats */}
-          <div className="mt-14 grid grid-cols-3 gap-8">
+          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3">
             {heroStats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -107,7 +125,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Right */}
+        {/* Dashboard Preview */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}

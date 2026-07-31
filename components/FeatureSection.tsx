@@ -8,10 +8,17 @@ import LiveInsights from "./LiveInsights";
 
 export default function FeatureSection() {
   return (
-    <section className="relative bg-slate-950 py-24">
+    <section
+      aria-labelledby="analytics-heading"
+      className="relative bg-slate-950 py-24"
+    >
       <div className="mx-auto max-w-7xl space-y-24 px-6 lg:px-8">
         {/* ================= Analytics ================= */}
-        <div id="analytics">
+        <section
+          id="analytics"
+          className="scroll-mt-24"
+          aria-labelledby="analytics-heading"
+        >
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +30,10 @@ export default function FeatureSection() {
               Infrastructure Analytics
             </span>
 
-            <h2 className="mt-6 text-4xl font-bold text-white">
+            <h2
+              id="analytics-heading"
+              className="mt-6 text-4xl font-bold text-white"
+            >
               Real-Time Performance Monitoring
             </h2>
 
@@ -35,30 +45,34 @@ export default function FeatureSection() {
 
           <div className="grid gap-8 md:grid-cols-3">
             <AnalyticsCard
-           title="CPU Usage"
-            value={74}
-  subtitle="Optimized performance"
-  color="cyan"
-/>
+              title="CPU Usage"
+              value={74}
+              subtitle="Optimized performance"
+              color="cyan"
+            />
 
-<AnalyticsCard
-  title="GPU Usage"
-  value={61}
-  subtitle="AI workloads"
-  color="violet"
-/>
+            <AnalyticsCard
+              title="GPU Usage"
+              value={61}
+              subtitle="AI workloads"
+              color="violet"
+            />
 
-<AnalyticsCard
-  title="Memory Usage"
-  value={82}
-  subtitle="Healthy allocation"
-  color="emerald"
-/>
+            <AnalyticsCard
+              title="Memory Usage"
+              value={82}
+              subtitle="Healthy allocation"
+              color="emerald"
+            />
           </div>
-        </div>
+        </section>
 
         {/* ================= Cloud Optimization ================= */}
-        <div id="optimization">
+        <section
+          id="optimization"
+          className="scroll-mt-24"
+          aria-labelledby="optimization-heading"
+        >
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +84,10 @@ export default function FeatureSection() {
               Cost Optimization
             </span>
 
-            <h2 className="mt-6 text-4xl font-bold text-white">
+            <h2
+              id="optimization-heading"
+              className="mt-6 text-4xl font-bold text-white"
+            >
               Reduce Multi-Cloud Spending
             </h2>
 
@@ -92,26 +109,30 @@ export default function FeatureSection() {
 
             <CloudProviderCard
               provider="Azure"
-             savings="$9,180"
+              savings="$9,180"
               monthlyCost="$36,200"
               optimization={81}
               trend="+11%"
               color="cyan"
-              />
+            />
 
-              <CloudProviderCard
+            <CloudProviderCard
               provider="Google Cloud"
-               savings="$7,920"
-               monthlyCost="$28,900"
-               optimization={89}
-               trend="+16%"
-               color="emerald"
-             />
+              savings="$7,920"
+              monthlyCost="$28,900"
+              optimization={89}
+              trend="+16%"
+              color="emerald"
+            />
           </div>
-        </div>
+        </section>
 
         {/* ================= Cloud Health ================= */}
-        <div id="cloud-health">
+        <section
+          id="cloud-health"
+          className="scroll-mt-24"
+          aria-labelledby="cloud-health-heading"
+        >
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -123,7 +144,10 @@ export default function FeatureSection() {
               Infrastructure Health
             </span>
 
-            <h2 className="mt-6 text-4xl font-bold text-white">
+            <h2
+              id="cloud-health-heading"
+              className="mt-6 text-4xl font-bold text-white"
+            >
               Everything Running Smoothly
             </h2>
 
@@ -134,8 +158,11 @@ export default function FeatureSection() {
           </motion.div>
 
           <CloudHealth />
-          <LiveInsights />
-        </div>
+
+          <div className="mt-8">
+            <LiveInsights />
+          </div>
+        </section>
       </div>
     </section>
   );
