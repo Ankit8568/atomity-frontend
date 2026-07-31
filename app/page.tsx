@@ -4,6 +4,7 @@ import FeatureSection from "../components/FeatureSection";
 import FeaturesGrid from "../components/FeaturesGrid";
 import CTASection from "../components/CTASection";
 import Footer from "../components/Footer";
+import BackToTop from "@/components/BackToTop";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <FeaturesGrid />
       <CTASection />
       <Footer />
+      <BackToTop/>
     </main>
   );
 }
